@@ -1,0 +1,327 @@
+
+$main-gradient: linear-gradient(135deg, rgb(104, 95, 38) 0%, rgb(241, 231, 38) 50%, rgb(161, 144, 96) 100%);
+$swing-color: rgba(79, 195, 108, 0.768);
+$swing-before: #5ea656;
+$swing-after: #64de6cc6;
+$circle-color: #71786c;
+$circle-before: #b9d2b5;
+$rope-color: rgb(120, 115, 124);
+$ball-1-color: radial-gradient(
+  rgba(244, 188, 90, 0.985),
+  rgba(196, 150, 35, 0.967));
+$ball-1-shadow: rgb(74, 55, 6);
+$ball-other-color: radial-gradient(
+  rgba(58, 189, 229, 0.952),
+  rgba(55, 118, 213, 0.989));
+$ball-other-shadow: rgb(22, 29, 96);
+$transform-params: rotateX(70deg) rotateZ(-40deg) rotateY(5deg);
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background: $main-gradient;
+  display: grid;
+  place-items: center;
+  perspective: 200rem;
+  overflow: hidden;
+}
+  
+.swing {
+  width: 45rem;
+  height: 15rem;
+  background-color:$swing-color;
+  transform: rotateX(70deg) rotateZ(-40deg) rotateY(5deg);
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 50%;
+  transform-origin: top;
+  
+  &::before {
+    content: "";
+    width: 1rem;
+    height: 100%;
+    background-color: $swing-before;
+    position: absolute;
+    transform: rotateY(90deg);
+    transform-origin: left;
+  }
+  &::after {
+    content: "";
+    height: 1rem;
+    width: 100%;
+    background-color: $swing-after;
+    position: absolute;
+    bottom: 0;
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+
+  }
+  &-1 {
+    animation: swingAnim 20s infinite ease-in-out;
+  
+
+  }
+  &-2 {
+    animation: swingAnim 20s -4s infinite ease-in-out;
+   
+  }
+  &-3 {
+    animation: swingAnim 20s -8s infinite ease-in-out;
+    
+  }
+  &-4 {
+    animation: swingAnim 20s -12s infinite ease-in-out;
+    
+  }
+  &-5 {
+    animation: swingAnim 20s -16s infinite ease-in-out;
+   
+  }
+  &-6 {
+    animation: swing6Anim 4s -1s infinite ease-in-out;
+    
+    background-color: transparent;
+    div:not(.ball-1) {
+      opacity: 0;
+    }
+    &::before, &::after {
+      opacity: 0;
+
+    }
+  }
+  &-7 {
+    animation: swing7Anim 4s -1s infinite ease-in-out;
+    
+    background-color: transparent;
+    div:not(.ball-2) {
+      opacity: 0;
+    }
+    &::before, &::after {
+      opacity: 0;
+
+    }
+  }
+  &-8 {
+    animation: swing8Anim 4s -1s infinite ease-in-out;
+    background-color: transparent;
+    div:not(.ball-3) {
+      opacity: 0;
+    }
+    &::before, &::after {
+      opacity: 0;
+
+    }
+  }
+}
+
+.circle {
+  width: 2rem;
+  height: 2rem;
+  background-color: $circle-color;
+  border-radius: 50%;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  &-1 {
+    top: 1rem;
+    left: 1rem;
+  }
+  &-2 {
+    top: 1rem;
+    right: 1rem;
+  }
+  &-3 {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  &-4 {
+    bottom: 1rem;
+    left: 1rem;
+  }
+  &::before {
+    content: "";
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: $circle-before;
+    position: absolute;
+    border-radius: 50%;
+    transform: translateZ(0.3rem);
+
+  }
+}
+
+.rope {
+  
+  height: 30rem;
+  width: 0.2rem;
+  background-color: $rope-color ;
+  position: absolute;
+  transform: translateZ(20rem) rotateX(90deg) rotateY(90deg);
+  transform-origin: top;
+  
+  
+  &-1 {
+    top: 4rem;
+    left: 2rem;
+   
+
+  }
+  &-2 {
+    top: 4rem;
+    right: 2rem;
+   
+
+  }
+  &::before {
+    content: "";
+    width: 0.01rem;
+    height: 21.5rem;
+    background-color: $rope-color;
+    position: absolute;
+    transform: translateY(-21.5rem) rotateZ(25deg);
+    transform-origin: bottom;
+    outline-style: dotted;
+   
+   
+  }
+  &::after {
+    content: "";
+    width: 0.01rem;
+    height: 20rem;
+    background-color: $rope-color;
+    position: absolute;
+    transform: translateY(-20rem) rotateZ(-6deg);
+    transform-origin: bottom;
+    outline-style: dotted;
+    
+    
+  }
+}
+
+.ball {
+  aspect-ratio: 1;
+  position: relative;
+  border-radius: 50%;
+  transform: rotateX(90deg) rotateY(40deg);
+  transform-origin: top;
+  &.ball-1 {
+    width: 7rem;
+    background-image: $ball-1-color ;
+    left: 15rem;
+    top: 10rem;
+    box-shadow: 0 0 0.3rem $ball-1-shadow ;
+  }
+  &.ball-2 {
+    width: 4rem;
+    background-image: $ball-other-color;
+    left: 30rem;
+    top: 9rem;
+    box-shadow: 0 0 0.3rem $ball-other-shadow;
+  }
+  &.ball-3 {
+    width: 4rem;
+    background-image: $ball-other-color;
+    left:8rem;
+    top: 11rem;
+    box-shadow: 0 0 0.3rem $ball-other-shadow;
+  }
+}
+
+@keyframes swingAnim {
+  0% {
+    transform: $transform-params translateY(100rem);
+  }
+
+  20% {
+    transform: $transform-params translateY(21rem);
+  }
+
+  25% {
+    transform: $transform-params translateY(27rem);
+  }
+
+  35%,
+  40% {
+    transform: $transform-params translateY(0);
+  }
+
+  50% {
+    transform: $transform-params translateY(-60rem);
+  }
+
+  55% {
+    transform: $transform-params translateY(-55rem);
+  }
+
+  65%,
+  70% {
+    transform: $transform-params translateY(-84rem);
+  }
+
+  100% {
+    transform: $transform-params translateY(-750rem);
+  }
+}
+
+@keyframes swing6Anim {
+  0% {
+    transform: $transform-params translateY(0);
+  }
+
+  50% {
+    transform: $transform-params translateY(25rem);
+  }
+  
+  100% {
+      transform: $transform-params translateY(0);
+  }
+}
+
+@keyframes swing7Anim {
+  0% {
+    transform: $transform-params translateY(-6rem);
+  }
+
+  50% {
+    transform: $transform-params translateY(32rem);
+  }
+  
+  100% {
+      transform: $transform-params translateY(-6rem);
+    }
+}
+
+@keyframes swing8Anim {
+  0% {
+    transform: $transform-params translateY(-6rem);
+  }
+
+  50% {
+    transform: $transform-params translateY(30rem);
+  }
+  
+  100% {
+      transform: $transform-params translateY(-6rem);
+  }
+}
+
+
+
+
+
+
+
+
+
